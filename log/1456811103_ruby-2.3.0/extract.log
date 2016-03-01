@@ -1,0 +1,65 @@
+[2016-03-01 11:30:03] __rvm_package_extract
+__rvm_package_extract () 
+{ 
+    rvm_debug __rvm_package_extract:$#: "$@";
+    \typeset __tempdir __path __file __return;
+    __return=0;
+    __tempdir="$( TMPDIR="${rvm_tmp_path}" mktemp -d -t rvm-tmp.XXXXXXXXX )";
+    __rvm_package_extract_run "$1" "$__tempdir" || __return=$?;
+    if (( __return == 0 )); then
+        for __path in "$__tempdir"/*;
+        do
+            __file="${__path##*/}";
+            if [[ -n "${__file}" && -e "$2/${__file}" ]]; then
+                \command \rm -rf "$2/${__file}" || __return=$?;
+            fi;
+            \command \mv -f "${__path}" "$2/" || __return=$?;
+        done;
+    fi;
+    if [[ -n "$__tempdir" ]]; then
+        \command \rm -rf "$__tempdir";
+    fi;
+    return $__return
+}
+current path: /home/bishisht/.rvm/src
+PATH=/usr/local/heroku/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/bishisht/.rvm/bin:/home/bishisht/.rvm/bin
+command(3): __rvm_package_extract /home/bishisht/.rvm/archives/ruby-2.3.0.tar.bz2 /home/bishisht/.rvm/tmp/rvm_src_3140
+++ rvm_debug __rvm_package_extract:2: /home/bishisht/.rvm/archives/ruby-2.3.0.tar.bz2 /home/bishisht/.rvm/tmp/rvm_src_3140
+++ ((  0  ))
+++ return 0
+++ typeset __tempdir __path __file __return
+++ __return=0
++++ TMPDIR=/home/bishisht/.rvm/tmp
++++ mktemp -d -t rvm-tmp.XXXXXXXXX
+++ __tempdir=/home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH
+++ __rvm_package_extract_run /home/bishisht/.rvm/archives/ruby-2.3.0.tar.bz2 /home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH
+++ [[    != *\ \-\-\n\o\-\s\a\m\e\-\o\w\n\e\r\ * ]]
+++ __rvm_tar --help
+++ __rvm_grep -- --no-same-owner
+++ GREP_OPTIONS=
+++ command grep -- --no-same-owner
+++ grep -- --no-same-owner
+++ rvm_tar_options=--no-same-owner
+++ [[ -d /home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH ]]
+++ case "$1" in
+++ [[ -n '' ]]
+++ __rvm_tar xjf /home/bishisht/.rvm/archives/ruby-2.3.0.tar.bz2 -C /home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH --no-same-owner
+++ tar xjf /home/bishisht/.rvm/archives/ruby-2.3.0.tar.bz2 -C /home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH --no-same-owner
+++ __rvm_fix_group_permissions /home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH/ruby-2.3.0
+++ umask -S
+++ __rvm_grep g=rw
+++ GREP_OPTIONS=
+++ command grep g=rw
+++ grep g=rw
+++ chmod -R g+rwX /home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH/ruby-2.3.0
+++ ((  __return == 0  ))
+++ for __path in '"$__tempdir"/*'
+++ __file=ruby-2.3.0
+++ [[ -n ruby-2.3.0 ]]
+++ [[ -e /home/bishisht/.rvm/tmp/rvm_src_3140/ruby-2.3.0 ]]
+++ command mv -f /home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH/ruby-2.3.0 /home/bishisht/.rvm/tmp/rvm_src_3140/
+++ mv -f /home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH/ruby-2.3.0 /home/bishisht/.rvm/tmp/rvm_src_3140/
+++ [[ -n /home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH ]]
+++ command rm -rf /home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH
+++ rm -rf /home/bishisht/.rvm/tmp/rvm-tmp.uxFfBCEzH
+++ return 0
